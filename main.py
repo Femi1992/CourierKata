@@ -1,4 +1,5 @@
 class Order:
+    """This is the order class which basically holds the data associated with one order"""
     def __init__(self, name):
         self.name = "Order {}".format(name)
         self.orderTotal = 0
@@ -6,6 +7,7 @@ class Order:
         self.speedyShippingCost = 0
 
     def getParcelSize(self):
+        """This method gets the parcel dimensions from the user and sets the order total"""
         stringParcelDim = input("Please enter parcel dimensions with spaces like so: 3 4 8: ").split()
         parcelDimTotal = sum(map(int, stringParcelDim))
 
@@ -28,6 +30,7 @@ class Order:
         return result
 
     def getParcelWeight(self):
+        """This method take the parcel weight as input from the user and adds to the running total accordingly"""
         parcelWeight = int(input("Please enter the weight of the parcel in KG: "))
         if self.parcelSize == "Small Parcel" and parcelWeight > 1:
             overWeight = parcelWeight - 1
@@ -51,12 +54,14 @@ class Order:
             self.orderTotal += overWeight
 
     def speedyShipping(self):
+        """If the user adds speedy shipping to their order this is added onto the running total"""
         addSpeedShip = input("Would you like speeding shipping for your order? Please state yes or no: ")
         if addSpeedShip == "yes":
             self.speedyShippingCost = self.orderTotal * 2
             self.orderTotal += self.speedyShippingCost
 
 def applyDiscount(orders):
+    """This method checks if discounts can be applied, if so method returns the amount to be deducted from the total"""
     smallParcel = 0
     mediumParcel = 0
     discount = 0
@@ -93,8 +98,9 @@ if __name__ == '__main__':
          totalSpeedyShipping += order.speedyShippingCost
 
      totalDiscounts = applyDiscount(allOrders)
+     orderTotal = allOrdersTotal - totalDiscounts
      print("The order sub-total is ${}".format(allOrdersTotal))
      print("The total cost of Speed Shipping is ${}".format(totalSpeedyShipping))
      print("The total discount applied is ${}".format(totalDiscounts))
-     print("Order total is ${}".format(allOrdersTotal-totalDiscounts))
+     print("Order total is ${}".format(orderTotal))
 
