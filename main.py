@@ -1,5 +1,6 @@
 class Order:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = "Order {}".format(name)
         self.orderTotal = 0
         self.parcelSize = ""
 
@@ -53,7 +54,40 @@ class Order:
         if addSpeedShip == "yes":
             self.orderTotal = self.orderTotal * 2
 
+def applyDiscount(orders):
+    smallParcel = 0
+    mediumParcel = 0
+    discount = 0
+    for order in orders:
+        if order.parcelSize == "Small Parcel":
+            smallParcel += 1
+        elif order.parcelSize == "Medium Parcel":
+            mediumParcel += 1
+    if smallParcel > 3:
+        discount += 3
+    elif mediumParcel > 2:
+        discount += 8
+    elif len(orders) > 5:
+        discount += orders[4].orderTotal
+    return discount
+
+
 if __name__ == '__main__':
-     order = Order()
-     order.getParcelSize()
-     #order.speedyShipping()
+     numParcels = int(input("How many parcels would you like to send?: "))
+     allOrders = []
+     allOrdersTotal = 0
+     totalDiscounts = 0
+
+     for x in range(numParcels):
+         order = Order(x)
+         order.getParcelSize()
+         order.getParcelWeight()
+         order.speedyShipping()
+         allOrders.append(order)
+
+     for order in allOrders:
+         allOrdersTotal += order.orderTotal
+
+     totalDiscounts = applyDiscount(allOrders)
+     print("The order total is {}").format(allOrdersTotal)
+
