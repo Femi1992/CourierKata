@@ -43,6 +43,10 @@ class Order:
             overWeight = parcelWeight - 10
             overWeight = overWeight * 2
             self.orderTotal += overWeight
+        elif parcelWeight > 50:
+            overWeight = parcelWeight - 50
+            overWeight = overWeight * 1
+            self.orderTotal += overWeight
 
     def speedyShipping(self):
         addSpeedShip = input("Would you like speeding shipping for your order? Please state yes or no: ")
