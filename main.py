@@ -3,6 +3,7 @@ class Order:
         self.name = "Order {}".format(name)
         self.orderTotal = 0
         self.parcelSize = ""
+        self.speedyShippingCost = 0
 
     def getParcelSize(self):
         stringParcelDim = input("Please enter parcel dimensions with spaces like so: 3 4 8: ").split()
@@ -52,7 +53,8 @@ class Order:
     def speedyShipping(self):
         addSpeedShip = input("Would you like speeding shipping for your order? Please state yes or no: ")
         if addSpeedShip == "yes":
-            self.orderTotal = self.orderTotal * 2
+            self.speedyShippingCost = self.orderTotal * 2
+            self.orderTotal += self.speedyShippingCost
 
 def applyDiscount(orders):
     smallParcel = 0
@@ -77,6 +79,7 @@ if __name__ == '__main__':
      allOrders = []
      allOrdersTotal = 0
      totalDiscounts = 0
+     totalSpeedyShipping = 0
 
      for x in range(numParcels):
          order = Order(x)
@@ -87,7 +90,11 @@ if __name__ == '__main__':
 
      for order in allOrders:
          allOrdersTotal += order.orderTotal
+         totalSpeedyShipping += order.speedyShippingCost
 
      totalDiscounts = applyDiscount(allOrders)
-     print("The order total is {}").format(allOrdersTotal)
+     print("The order sub-total is ${}".format(allOrdersTotal))
+     print("The total cost of Speed Shipping is ${}".format(totalSpeedyShipping))
+     print("The total discount applied is ${}".format(totalDiscounts))
+     print("Order total is ${}".format(allOrdersTotal-totalDiscounts))
 
